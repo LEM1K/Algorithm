@@ -6,73 +6,34 @@ import java.util.Scanner;
  *version 1
  */
 
-/*public class Make_One {
-	 
-	private static Integer[] dp;
-	
-	public static int recur(int N) {
-		 
-		if (dp[N] == null) {
-			
-			// 3으로만 나눠지는 경우 
-			if (N % 3 == 0) {
-				dp[N] = Math.min(recur(N / 3), recur(N - 1)) + 1;
-			}
-			// 2로만 나눠지는 경우 
-			else if (N % 2 == 0) {
-				dp[N] = Math.min(recur(N / 2), recur(N - 1)) + 1;
-			}
-			// 2와 3으로 나누어지지 않는 경우
-			else {
-				dp[N] = recur(N - 1) + 1;
-			}
-		}
-		return dp[N];
-	}
-	public static void main(String[] args) {
- 
-		Scanner in = new Scanner(System.in);
- 
-		int N = in.nextInt();
- 
-		dp = new Integer[N + 1];
-		dp[0] = 0;
-		dp[1] = 0;
-		
-		recur(N);
-		
-		for(int i = 0; i < dp.length; i++) {
-			System.out.println(dp[i]);
-		}
-		
-		//System.out.print(recur(N));
- 
-	}
-}*/
-
 public class Make_One {
 	
-	private static int arr[];
+	private static Integer arr[];
 	//메모이제이션
-	
+	//초기값이 0으로 초기화 되기 때문에 나머지 요소들은 null로 초기화 되는 Integer형 사용
 	public static int solution(int n) {
 		
-		if(arr[n] == 0) {
-			//배열 요소가 0일 경우 
+		if(arr[n] == null) {
+			//배열 요소가 null일 경우 
 			
 			//조건 1. x가 3으로 나누어 떨어지면 3으로 나눔
 			if(n % 3 == 0) {
 				arr[n] = Math.min(solution(n / 3), solution(n - 1)) + 1;
+				//점화식 1 : d[n] = d[n / 3] + 1
+				//최소값 비교를 위해 점화식 3과 비교 후 적은 값 저장
 			}
 			
 			//조건 2. x가 2로 나누어 떨어지면 2로 나눔
 			else if(n % 2 == 0) {
 				arr[n] = Math.min(solution(n / 2), solution(n - 1)) + 1;
+				//점화식2 : d[n] = d[n / 2] + 1
+				//최소값 비교를 위해 점화식 3과 비교 후 적은 값 저장
 			}
 			
 			//조건 3. 위 두 경우에 해당하지 않으면 1을 뺌
 			else {
 				arr[n] = solution(n - 1) + 1;
+				//점화식3 : d[n] = d[n - 1] + 1
 			}	
 		}
 		
@@ -86,20 +47,17 @@ public class Make_One {
 		System.out.println("1로 만들 숫자를 입력하시오  >> ");
 		n = input.nextInt();
 		
-		arr = new int[n + 1];
+		arr = new Integer[n + 1];
 		//배열 초기화
 		
-		arr[0] = 1;
-		arr[1] = 1;
+		arr[0] = 0;
+		arr[1] = 0;
 		//초기값 
-		
 		
 		System.out.println();
 		
-		System.out.println(n + " to 1 needs count : " + (solution(n) - 1));
-		for(int i = 0; i < arr.length; i++) {
-			System.out.print(arr[i] + " ");
-		}
+		System.out.println(n + " to 1 needs count : " + (solution(n)));
+		
 	}
 
 }
