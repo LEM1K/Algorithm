@@ -1,9 +1,12 @@
 package week2_dynamicProgramming;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /*백준 1463 - 1로 만들기
- *version 1
+ *version 2
  */
 
 public class Make_One {
@@ -28,35 +31,39 @@ public class Make_One {
 				arr[n] = Math.min(solution(n / 2), solution(n - 1)) + 1;
 				//점화식2 : d[n] = d[n / 2] + 1
 				//최소값 비교를 위해 점화식 3과 비교 후 적은 값 저장
+			}	
+			else {
+				//조건 3. 위 두 경우에 해당하지 않으면 1을 뺌
+				arr[n] = solution(n - 1) + 1;
+				//점화식3 : d[n] = d[n - 1] + 1	
 			}
 			
-			//조건 3. 위 두 경우에 해당하지 않으면 1을 뺌
-			else {
-				arr[n] = solution(n - 1) + 1;
-				//점화식3 : d[n] = d[n - 1] + 1
-			}	
 		}
 		
 		return arr[n];
 	}
 	
-	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
+	public static void main(String[] args)  throws NumberFormatException, IOException {
+		//Scanner input = new Scanner(System.in);
 		int n;
-		
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
 		System.out.println("1로 만들 숫자를 입력하시오  >> ");
-		n = input.nextInt();
 		
-		arr = new Integer[n + 1];
-		//배열 초기화
 		
-		arr[0] = 0;
-		arr[1] = 0;
-		//초기값 
+			n = Integer.parseInt(bf.readLine());
+			
+			arr = new Integer[n + 1];
+			//배열 초기화
+			
+			arr[0] = 0;
+			arr[1] = 0;
+			//초기값 
+			System.out.println(solution(n));
+			
+			bf.close();
+			
 		
-		System.out.println();
-		
-		System.out.println(n + " to 1 needs count : " + (solution(n)));
 		
 	}
 
