@@ -1,5 +1,8 @@
 package week4_queue_stack_ex;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /*백준 10845 - 큐
@@ -56,18 +59,18 @@ public class Queue_basic {
 		return a[rear];
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		Scanner input = new Scanner(System.in);
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		
-		int n = input.nextInt();
+		int n = Integer.parseInt(bf.readLine());
 		queue = new int[n];
 		for(int i = 0; i < n; i++) {
-			String s = input.next();
+			String s = bf.readLine();
 			
 			switch(s) {
 			case "push":
-				int a = input.nextInt();
+				int a = Integer.parseInt(bf.readLine());
 				push(queue, a);
 				break;
 			case "pop":
