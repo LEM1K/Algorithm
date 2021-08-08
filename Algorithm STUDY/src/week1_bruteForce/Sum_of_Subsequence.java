@@ -11,35 +11,44 @@ import java.util.Scanner;
  */
 
 public class Sum_of_Subsequence {
-	static int[] arr;
-	static int n, s, cnt = 0;
 	
-	private static void dfs(int v, int su) {
+	private static int[] arr;
+	
+	private static int count = 0;
+	private static int n, s;
+	
+	private static void DFS(int v, int sum) {
 		if(v == n) {
-			if(su == s) cnt++;
+			if(sum == s) {
+				count++;
+			}
 			return;
 		}
-
-		dfs(v + 1, su + arr[v]);
-		dfs(v + 1, su);
+		DFS(v + 1, sum);
+		DFS(v + 1, sum + arr[v]);
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String args[]) {
 		Scanner input = new Scanner(System.in);
+		
 		n = input.nextInt();
-		//배열 사이즈
 		s = input.nextInt();
-		//결과 값
+		
 		arr = new int[n];
 		
 		for(int i = 0; i < n; i++) {
 			arr[i] = input.nextInt();
 		}
-		Arrays.sort(arr);
-		//배열 정렬
 		
-		dfs(0, 0);
-		System.out.print(s == 0? --cnt : cnt);
+		DFS(0, 0);
+		
+		if(s == 0) {
+			count--;
+			System.out.println(count);
+		}
+		else {
+			System.out.println(count);
+		}
 	}
 }
 

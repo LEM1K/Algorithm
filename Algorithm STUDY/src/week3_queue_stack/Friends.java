@@ -11,6 +11,8 @@ import java.util.*;
 
 public class Friends {
 	
+	
+	
 	public static void main(String[] args){
 		// TODO Auto-generated method stub
 		Scanner input = new Scanner(System.in);
@@ -19,40 +21,38 @@ public class Friends {
 		int range = input.nextInt();
 		int count = 0;
 		
-		int[] arr = new int[friends_num];
+		Queue<Integer>[] queue = new Queue[21];
+		
+		for(int i = 0; i < 21; i++) {
+			queue[i] = new LinkedList<>();
+		}
+		
+		
+		
+		
 		for(int i = 0; i < friends_num; i++) {
-			String friend = input.next();
-			arr[i] = friend.length();
-			//입력한 친구의 길이(문자수)를 배열에 저장
+			String name = input.next();
+			int len = name.length();
+			
+			
+			if(queue[len].isEmpty()) {
+				queue[len].offer(i);
+			}
+			else {
+				while(i - queue[len].peek() > range) {
+					queue[len].poll();
+					if(queue[len].isEmpty()) {
+						break;
+					}
+				}
+				
+				count += queue[len].size();
+				queue[len].offer(i);
+			}
 		}
 
 		
-		for(int i = 0; i < arr.length; i++) {
-			
-			int tmp = arr[i];
-			//배열의 요소 임시 저장
-			int grade = range + i;
-			//성적 격차
-			if(grade >= arr.length - 1) {
-			
-				grade = arr.length - 1;
-				//배열 범위 초과 예외를 처리하기 위해 성적 격차가 배열의 사이즈보다 높거나 같으면 배열 사이즈 만큼 재설정
-			}
-			
-			
-			else {
-				for(int j = i + 1; j <= grade; j++) {
-					//다음 배열요소부터 격차까지 반복
-					if(tmp == arr[j]) {
-						count++;
-						//임시 저장한 요소와 그 다음 요소 길이가 같으면 카운트 업
-					}
-				}
-			}
-		}
 		System.out.println(count);
-		
-		//ps. 값은 제대로 나오나 시간초과. 큐를 사용하여 알고리즘 개선 필요
 	}
 
 }
