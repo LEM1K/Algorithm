@@ -8,50 +8,41 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /*백준 2294 - 동전 2
- *version 1
+ *version 2
  */
 
 public class Coin2 {
-	private static int n;
-	private static int sum;
-	private static int[] coin_arr;
-	private static int[] dp;
+	private static int coins[];
+	private static int dp[];
 	
-	public static int solution(int n, int sum) {
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		
+		int n = input.nextInt();
+		int k = input.nextInt();
+		
+		coins = new int[n];
+		dp = new int[k + 1];
 		
 		for(int i = 0; i < n; i++) {
-			for(int j = coin_arr[i]; j <= sum; j++) {
-				dp[j] = dp[j] + 1; 
+			int tmp = input.nextInt();
+			coins[i] = tmp;
+		}
+		
+		Arrays.fill(dp, 100001);
+		dp[0] = 0;
+		dp[1] = 1;
+		
+		for(int i = 0; i < n; i++) {
+			
+			for(int j = coins[i]; j <= k; j++) {					
+				dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
+
 			}
 		}
-		return dp[sum];
+		
+		
+		System.out.print(dp[k]);	
+		
 	}
-
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		
-		System.out.print("코인 갯수 >> ");
-		n = Integer.parseInt(bf.readLine());
-		System.out.print("목표 합    >> ");
-		sum = Integer.parseInt(bf.readLine());
-		
-		coin_arr = new int[n];
-		dp = new int[sum + 1];
-		dp[0] = 0;
-		
-		
-		System.out.println("동전 종류");
-		StringTokenizer st = new StringTokenizer(bf.readLine(), " ");
-		
-		for(int i = 0; i < coin_arr.length; i++) {
-			coin_arr[i] = Integer.parseInt(st.nextToken());
-		}
-		
-		System.out.println("사용 코인 수  : " + solution(n, sum));
-		for(int i = 0; i < sum; i++) {
-			System.out.print(dp[i] + " ");
-		}
-	}
-
 }
