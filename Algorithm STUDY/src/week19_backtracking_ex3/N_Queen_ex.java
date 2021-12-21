@@ -1,4 +1,4 @@
-package week18_backtracking_ex2;
+package week19_backtracking_ex3;
 
 import java.util.Arrays;
 import java.util.Scanner;
